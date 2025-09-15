@@ -1,0 +1,54 @@
+/* src/components/Footer.css */
+.app-footer {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  padding: 3rem 0;
+  font-family: var(--font-secondary);
+}
+
+.footer-content {
+  /* Uses the global container class for width/centering */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-section h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--color-orange);
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-section a:hover {
+  color: var(--color-orange);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.875rem;
+}
