@@ -28,7 +28,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="blogs" element={<BlogsPage />} />
-        <Route path="blogs/:articleId" element={<ArticlePage />} />
+        <Route path="blogs/:slug" element={<ArticlePage />} />
         <Route path="video" element={<VideoPage />} /> {/* Add route */}
         <Route path="support" element={<SupportPage />} /> {/* Add route */}
         <Route path="about" element={<AboutPage />} /> {/* Add route */}

@@ -1,32 +1,43 @@
 // src/pages/ArticlePage.jsx
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { mockArticles } from "../data/mockArticles";
+import { client } from "../lib/sanityClient";
+import { PortableText } from "@portabletext/react"; // 1. Import the new component
 import "./ArticlePage.css";
 
 function ArticlePage() {
-  // 1. Get the articleId from the URL
-  const { articleId } = useParams();
+  const [article, setArticle] = useState(null);
+  const { slug } = useParams();
 
-  // 2. Find the article in our data array
-  // In a real app, you'd fetch this from a server or CMS.
-  // We use '==' because useParams gives a string, and our id is a number.
-  const article = mockArticles.find((p) => p.id == articleId);
+  useEffect(() => {
+    const query = `*[_type == "article" && slug.current == $slug][0]{
+      title,
+      body,
+      "category": categories[0]->title,
+      publishedAt
+    }`;
+    const params = { slug };
 
-  // Handle case where article is not found
+    client
+      .fetch(query, params)
+      .then((data) => {
+        setArticle(data);
+      })
+      .catch(console.error);
+  }, [slug]);
+
   if (!article) {
-    return (
-      <div>
-        <h2>Article not found!</h2>
-        <Link to="/blogs">Back to all articles</Link>
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
-  const formattedDate = new Date(article.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = new Date(article.publishedAt).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  );
 
   return (
     <div className="article-content">
@@ -40,19 +51,8 @@ function ArticlePage() {
         </p>
       </header>
       <div className="article-body">
-        {/* This is placeholder content. Later, it will come from the CMS. */}
-        <p>{article.excerpt}</p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-          odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
-          quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
-          mauris.
-        </p>
-        <p>
-          Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum
-          lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora
-          torquent per conubia nostra, per inceptos himenaeos.
-        </p>
+        {/* 2. Use the new PortableText component. It's much simpler! */}
+        {article.body && <PortableText value={article.body} />}
       </div>
     </div>
   );

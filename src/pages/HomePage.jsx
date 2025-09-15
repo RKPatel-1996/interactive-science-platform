@@ -1,9 +1,29 @@
 // src/pages/HomePage.jsx
+import { useState, useEffect } from "react";
 import "./HomePage.css";
-import { mockArticles } from "../data/mockArticles"; // Import the data
-import ArticleCard from "../components/ArticleCard"; // Import the component
+import { client } from "../lib/sanityClient";
+import ArticleCard from "../components/ArticleCard";
 
 function HomePage() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const query = `*[_type == "article"]{
+      _id,
+      title,
+      slug,
+      excerpt,
+      "category": categories[0]->title
+    }`;
+
+    client
+      .fetch(query)
+      .then((data) => {
+        setArticles(data);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <div>
       <section className="hero-section">
@@ -16,10 +36,9 @@ function HomePage() {
 
       <section className="articles-section">
         <h2>Explore Articles</h2>
-        {/* Replace placeholder with the actual grid */}
         <div className="article-grid">
-          {mockArticles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
+          {articles.map((article) => (
+            <ArticleCard key={article._id} article={article} />
           ))}
         </div>
       </section>
