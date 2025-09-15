@@ -1,0 +1,53 @@
+/* src/components/ArticleCard.css */
+.article-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: var(--color-white);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  color: var(--color-dark-blue);
+  margin: 0 0 0.5rem 0;
+}
+
+.card-excerpt {
+  font-family: var(--font-secondary);
+  color: #495057;
+  margin: 0 0 1rem 0;
+  flex-grow: 1; /* Makes the excerpt fill available space */
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.card-category {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.card-read-more {
+  align-self: flex-start; /* Aligns button to the left */
+  text-decoration: none;
+  color: var(--color-orange);
+  font-weight: bold;
+}

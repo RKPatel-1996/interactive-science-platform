@@ -5,19 +5,20 @@ import BlogsPage from "./pages/BlogsPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// This is our main layout component
 function Layout() {
   return (
     <div>
       <Header />
-      <main>
-        {/* The Outlet component renders the current page's content */}
+      {/* Apply the container to the main content area */}
+      <main className="container">
         <Outlet />
       </main>
       <Footer />
     </div>
   );
 }
+
+// ... (rest of the App component remains the same) ...
 
 function App() {
   return (
